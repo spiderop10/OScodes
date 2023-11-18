@@ -1,0 +1,73 @@
+Addressbook
+echo "Enter your choice"
+  echo "1.create new file"
+  echo "2.Use existing file"
+  read filech
+  
+  	echo "enter name for file:"
+  	read file_name
+  	echo "**$file_name**"
+  	
+  if [ $filech -eq 1 ]
+  then
+  	touch $file_name
+  	echo "file is created successfully"
+  fi
+  
+  ch=0
+  while [ $ch -ne 5 ]
+  do
+  	echo "**Enter the choice**"
+	echo "1.Insert the values"
+	echo "2.Delete the values"
+	echo "3.Modify the values"
+	echo "4.Display the values"
+	echo "5.exit"
+	read ch
+	 	case $ch in
+	 	1)choice=0
+	 	while [ $choice != 1 ]
+	 	do
+	 	echo "enter employ_id  employ_name  employ_mobileno  employ_city"	
+	 	read emp_id  emp_name  emp_mno  emp_city
+	 	echo "$emp_id $emp_name $emp_mno $emp_city">>$file_name
+	 	echo "Do you want to enter another record(0/1)"
+	 	read choice
+	 	done
+	 	;;
+	 	2)echo "which record you want to delete?"
+	 	read del
+	 	sed -i '/'$del'/d' $file_name
+	 	;;
+	 	3)echo -e "\n1.Name  \n2.Mobile Number \n3.City  \n4.exit"
+	 	echo "which record you want to modify?"
+	 	read modify 
+	 		case $modify in 
+	 		1)echo -e "Enter the old name"
+	 		read old_name
+	 		echo -e "Enter the new name"
+	 		read new_name
+	 		sed -i 's/'$old_name'/'$new_name'/' $file_name
+	 		;;
+	 		2)echo -e "Enter the Exisiting mobile number :"
+	 		read old_number
+	 		echo -e "Enter the new Number"
+	 		read new_number
+	 		sed -i 's/'$old_number'/'$new_number'/' $file_name
+	 		;;
+	 		2)echo -e "Enter the Exisiting City :"
+	 		read old_city
+	 		echo -e "Enter the new city"
+	 		read new_city
+	 		sed -i 's/'$old_city'/'$new_city'/' $file_name
+	 		;;
+	 		esac
+	 		;;
+	 		
+	 	4)cat $file_name
+	 	;;
+	 	5);;
+	 	*)echo "INVAILD INPUT"
+	 	;;
+	 	esac
+	 	done
